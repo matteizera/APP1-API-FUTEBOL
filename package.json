@@ -2,6 +2,7 @@
   "name": "api-futebol",
   "version": "1.0.0",
   "description": "Trabalhinho da disciplina Tópicos Especiais em Algorítmos.",
+  "private": true,
   "license": "MIT",
   "authors": [
     "Fernanda C. Silva",
@@ -30,7 +31,8 @@
     },
     "rules": {
       "no-console": "off",
-      "no-magic-numbers": "off"
+      "no-magic-numbers": "off",
+      "no-underscore-dangle": "off"
     }
   }
 }
