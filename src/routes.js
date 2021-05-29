@@ -24,7 +24,16 @@ routes.post('/teams', (req, res) => {
 routes.get('/teams', (req, res) => {})
 
 // Find team
-routes.get('/teams/:id', (req, res) => {})
+routes.get('/teams/:id', (req, res) => {
+  const teamId = Number(req.params.id)
+  const team = teamsRepository.find(teamId)
+
+  if (!team) {
+    res.status(404).json({ msg: `Time com ID '${req.params.id}' não encontrado` })
+  } else {
+    res.status(200).json(team)
+  }
+})
 
 // Edit team
 routes.put('/teams/:id', (req, res) => {})
