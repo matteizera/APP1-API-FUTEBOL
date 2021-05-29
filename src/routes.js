@@ -30,6 +30,11 @@ routes.get('/teams/:id', (req, res) => {})
 routes.put('/teams/:id', (req, res) => {})
 
 // Remove team
-routes.delete('/teams/:id', (req, res) => {})
+routes.delete('/teams/:id', (req, res) => {
+  const teamId = Number(req.params.id)
+  const deletedTeam = teamsRepository.delete(teamId)
+
+  res.status(200).json(deletedTeam)
+})
 
 module.exports = routes
