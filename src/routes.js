@@ -1,6 +1,6 @@
 const express = require('express')
 const routes = express.Router()
-const DB = require('./teams')
+const DataBase = require('./dataBase')
 
 const verifyTeam = (team) => {
   let isTeamValid = true
@@ -39,16 +39,18 @@ const verifyTeam = (team) => {
 routes.post("/teams", (req, res) => {
 
   const { name, city, state, serie, payment, titles } = req.body
-  const id = DB.teams.length + 1
-  const team = { id, name, city, state, serie, payment, titles }
+  const team = { name, city, state, serie, payment, titles }
   const {isTeamValid, msg} = verifyTeam(team)
   if (isTeamValid) {
     const fixedTitles = team.titles.map(title => Math.floor(title))
     team.titles = fixedTitles
-    DB.teams.push(team)
-    res.status(200).json( team)
+
+    res.status(200).json(DataBase.saveTeam(team))
+
   } else {
-    res.status(400).json({msg})
+
+    res.status(400).json({ msg })
+
   }
 })
 
