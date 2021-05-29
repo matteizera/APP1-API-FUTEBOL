@@ -1,26 +1,27 @@
 
 const validateTeam = (team) => {
-  const series = ['A', 'B', 'C', '']
+  const series = ['A', 'B', 'C', null]
   const errorMessages = []
 
-  if (isNaN(team.titles[0]) || isNaN(team.titles[1]) || isNaN(team.titles[2])) {
-    errorMessages.push('Titulo deve ser um array com 3 numeros')
+  if (!Array.isArray(team.titles) || team.titles.length !== 3 || team.titles.some((title) => isNaN(title))) {
+    errorMessages.push("'titles' deve ser um array com 3 números")
   }
-  if (!series.includes(team.serie.toUpperCase())) {
-    errorMessages.push('Serie deve ser a, b, c ou nada')
+  if (team.serie !== undefined) {
+    if (!series.includes(team.serie)) {
+      errorMessages.push("'serie' deve ser 'A', 'B', 'C' ou nula")
+    }
   }
   if (!team.name) {
-    errorMessages.push('Nome deve ser um nome valido')
+    errorMessages.push("'name' deve ser um nome válido")
   }
   if (!team.city) {
-    errorMessages.push('Cidade deve ser um nome valido')
+    errorMessages.push("'city' deve ser uma cidade válida")
   }
   if (!team.state) {
-    errorMessages.push('Estado deve ser um nome valido')
+    errorMessages.push("'state' deve ser um estado válido")
   }
-  if (isNaN(team.payment) && team.payment) {
-    console.log(team.payment)
-    errorMessages.push('Pagamento deve ser um numero valido')
+  if (isNaN(team.payment)) {
+    errorMessages.push("'payment' deve ser um número valido")
   }
 
   if (errorMessages.length) {

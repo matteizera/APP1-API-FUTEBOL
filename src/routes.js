@@ -6,11 +6,12 @@ const routes = express.Router()
 
 // Create team
 routes.post('/teams', (req, res) => {
-  const { name, city, state, serie = null, payment, titles } = req.body
+  const { name, city, state, serie = null, payment, titles = [] } = req.body
   const team = { name, city, state, serie, payment, titles }
 
   try {
     validateTeam(team)
+    team.payment = parseFloat(team.payment)
     team.titles = team.titles.map((title) => Math.floor(title))
     res.status(201).json(teamsRepository.save(team))
   } catch (msg) {
@@ -37,7 +38,7 @@ routes.get('/teams/:id', (req, res) => {
 routes.put('/teams/:id', (req, res) => {
   const teamId = Number(req.params.id)
   const oldTeam = teamsRepository.find(teamId)
-  const { name, city, state, serie = null, payment, titles } = req.body
+  const { name, city, state, serie = null, payment, titles = [] } = req.body
   const newTeam = { id: teamId, name, city, state, serie, payment, titles }
 
   if (!oldTeam) {
@@ -47,6 +48,7 @@ routes.put('/teams/:id', (req, res) => {
 
   try {
     validateTeam(newTeam)
+    newTeam.payment = parseFloat(newTeam.payment)
     newTeam.titles = newTeam.titles.map((title) => Math.floor(title))
     res.status(200).json(teamsRepository.save(newTeam))
   } catch (msg) {
