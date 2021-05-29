@@ -6,16 +6,14 @@ const routes = express.Router()
 
 // Create team
 routes.post('/teams', (req, res) => {
-  const { name, city, state, serie, payment, titles } = req.body
+  const { name, city, state, serie = null, payment, titles } = req.body
   const team = { name, city, state, serie, payment, titles }
-  const { isTeamValid, msg } = validateTeam(team)
 
-  if (isTeamValid) {
-    const fixedTitles = team.titles.map((title) => Math.floor(title))
-
-    team.titles = fixedTitles
+  try {
+    validateTeam(team)
+    team.titles = team.titles.map((title) => Math.floor(title))
     res.status(201).json(teamsRepository.save(team))
-  } else {
+  } catch (msg) {
     res.status(422).json({ msg })
   }
 })
