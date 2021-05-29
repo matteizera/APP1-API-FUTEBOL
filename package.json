@@ -1,19 +1,36 @@
 {
-  "name": "primeira-api",
+  "name": "api-futebol",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Trabalhinho da disciplina Tópicos Especiais em Algorítmos.",
+  "license": "MIT",
+  "authors": [
+    "Fernanda C. Silva",
+    "Julio L. Muller",
+    "Lucas M. Malfertheiner"
+  ],
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "lint": "eslint src/ --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-config-lacussoft": "^2.0.1",
     "nodemon": "^2.0.7"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": "lacussoft",
+    "env": {
+      "commonjs": true,
+      "node": true
+    },
+    "rules": {
+      "no-console": "off",
+      "no-magic-numbers": "off"
+    }
   }
 }
