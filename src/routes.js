@@ -34,7 +34,25 @@ routes.get('/teams/:id', (req, res) => {
 })
 
 // Edit team
-routes.put('/teams/:id', (req, res) => {})
+routes.put('/teams/:id', (req, res) => {
+  const teamId = Number(req.params.id)
+  const oldTeam = teamsRepository.find(teamId)
+  const { name, city, state, serie = null, payment, titles } = req.body
+  const newTeam = { id: teamId, name, city, state, serie, payment, titles }
+
+  if (!oldTeam) {
+    res.status(404).json({ msg: `Time com ID '${req.params.id}' não encontrado` })
+    return
+  }
+
+  try {
+    validateTeam(newTeam)
+    newTeam.titles = newTeam.titles.map((title) => Math.floor(title))
+    res.status(200).json(teamsRepository.save(newTeam))
+  } catch (msg) {
+    res.status(422).json({ msg })
+  }
+})
 
 // Remove team
 routes.delete('/teams/:id', (req, res) => {
