@@ -1,0 +1,31 @@
+{
+  "teams": [
+    {
+      "id": 1,
+      "name": "Curitiba",
+      "city": "Curitiba",
+      "state": "Parana",
+      "serie": "A",
+      "payment": 320000.00,
+      "titles": [5, 1, 1]
+    },
+    {
+      "id": 2,
+      "name": "Flamengo",
+      "city": "Rio de Janeiro",
+      "state": "Rio de Janeiro",
+      "serie": "A",
+      "payment": 4000000.00,
+      "titles": [1, 2, 3]
+    },
+    {
+      "id": 3,
+      "name": "Palmeiras",
+      "city": "São Paulo",
+      "state": "São Paulo",
+      "serie": "A",
+      "payment": 320000.00,
+      "titles": [3, 2, 1]
+    }
+  ]
+}
