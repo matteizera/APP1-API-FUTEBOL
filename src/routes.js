@@ -14,9 +14,9 @@ routes.post('/teams', (req, res) => {
     const fixedTitles = team.titles.map((title) => Math.floor(title))
 
     team.titles = fixedTitles
-    res.status(200).json(teamsRepository.save(team))
+    res.status(201).json(teamsRepository.save(team))
   } else {
-    res.status(400).json({ msg })
+    res.status(422).json({ msg })
   }
 })
 
