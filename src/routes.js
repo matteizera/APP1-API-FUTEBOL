@@ -21,12 +21,13 @@ routes.post('/teams', (req, res) => {
 
 // List teams
 routes.get('/teams', (req, res) => {
-  const teams = teamsRepository
-  if (!teams) {
-    res.status(404).json({ msg: 'Não existem times cadastrados' })
-  } else {
-    res.status(200).json(teams)
-  }
+  const search = req.query.search && new RegExp(req.query.search, 'i')
+  const teams = teamsRepository.get()
+  const result = search
+    ? teams.filter((team) => Object.values(team).join().match(search))
+    : teams
+
+  res.status(200).json(result)
 })
 
 // Find team
@@ -36,18 +37,6 @@ routes.get('/teams/:id', (req, res) => {
 
   if (!team) {
     res.status(404).json({ msg: `Time com ID '${req.params.id}' não encontrado` })
-  } else {
-    res.status(200).json(team)
-  }
-})
-
-// Find team by name
-routes.get('/teams/search/:name', (req, res) => {
-  const teamName = String(req.params.name)
-  const team = teamsRepository.findByName(teamName)
-
-  if (!team) {
-    res.status(404).json({ msg: `Time com o nome '${req.params.name}' não encontrado` })
   } else {
     res.status(200).json(team)
   }

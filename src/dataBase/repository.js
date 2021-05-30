@@ -19,10 +19,6 @@ class Repository {
     return this._collection.find((item) => item.id == id) // eslint-disable-line eqeqeq
   }
 
-  findByName(name) {
-    return this._collection.find((item) => item.name.toLocaleLowerCase() == name.toLocaleLowerCase()) // eslint-disable-line eqeqeq
-  }
-
   save(data) {
     if (data.id) {
       const item = this.find(data.id)
